@@ -1,0 +1,69 @@
+{
+  "name": "@shapeshiftoss/hdwallet",
+  "private": true,
+  "repository": "https://github.com/shapeshift/hdwallet",
+  "author": "ShapeShift Open Source <oss@shapeshiftoss.io>",
+  "license": "MIT",
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "examples/*",
+      "integration"
+    ],
+    "nohoist": [
+      "**/examples/test/**"
+    ]
+  },
+  "scripts": {
+    "clean": "lerna run clean --scope @shapeshiftoss/* && rm -rf coverage test-report node_modules && yarn cache clean",
+    "lint": "eslint --cache --max-warnings=0 .",
+    "lint:fix": "yarn lint --fix",
+    "lint:ts": "tsc --noEmit",
+    "format": "prettier .",
+    "build": "yarn tsc --build && lerna run build --scope @shapeshiftoss/hdwallet-native-vault",
+    "dev:all": "yarn tsc --build --watch",
+    "dev:sandbox": "cd examples/sandbox && yarn dev",
+    "docker:run:emulator": "docker run -p 5000:5000 kktech/kkemu:latest",
+    "docker:stop:run:emulator": "docker stop $(docker ps -a -q --filter ancestor=kktech/kkemu:latest --format=\"{{.ID}}\") && docker run -p 5000:5000 kktech/kkemu:latest",
+    "vercel-install": "yarn install --frozen-lockfile",
+    "vercel-build": "lerna run build --scope @shapeshiftoss/hdwallet-core && lerna run build --scope @shapeshiftoss/hdwallet-sandbox --ignore @shapeshiftoss/hdwallet-keepkey-nodehid --include-filtered-dependencies && mkdir -p ./public && cp -R ./examples/sandbox/public/. ./public/",
+    "test": "yarn jest --verbose --config jest.config.js",
+    "test:integration": "yarn jest -c integration/jest.config.js",
+    "lerna:version-alpha": "lerna version prerelease --force-publish --no-push --exact --yes",
+    "lerna:version-patch": "lerna version patch --force-publish --no-push --exact --yes",
+    "lerna:version-minor": "lerna version minor --force-publish --no-push --exact --yes",
+    "lerna:version-major": "lerna version major --force-publish --no-push --exact --yes",
+    "lerna:publish": "lerna publish --pre-dist-tag alpha from-package",
+    "postinstall": "patch-package"
+  },
+  "devDependencies": {
+    "@types/inquirer": "9.0.3",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-jest": "26.1.1",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "fake-indexeddb": "^3.1.7",
+    "jest": "^26.6.3",
+    "jest-environment-jsdom": "^25.5.0",
+    "jest-junit": "^12.0.0",
+    "lerna": "^5.2.0",
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.5.5",
+    "typescript": "^5.2.2"
+  },
+  "resolutions": {
+    "@types/eventsource": "1.1.8",
+    "@types/node": "20.5.7@ts4.7",
+    "p-queue": "^6.6.2"
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^20.5.7",
+    "patch-package": "^6.2.2",
+    "postinstall-postinstall": "^2.1.0"
+  },
+  "packageManager": "yarn@1.22.19"
+}

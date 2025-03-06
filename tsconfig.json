@@ -1,0 +1,57 @@
+{
+  "compilerOptions": {
+    // tsc is insanely drunk with internal resolutions currently, this at least silences it so we can ship things
+    // the installed versions are still the same as before, but the bumped tsc version might have made it stricter
+    "skipLibCheck": true,
+    "target": "ES2016",
+    "module": "commonjs",
+    "lib": ["es2020", "dom", "es5"],
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
+    "isolatedModules": true,
+    /* Strict Type-Checking Options */
+    "strict": true,
+
+    /* Module Resolution Options */
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "baseUrl": "./packages",
+    "paths": {
+      "@shapeshiftoss/*": ["$1/src/*"]
+    },
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+
+    /* Experimental Options */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "files": [],
+  "exclude": ["node_modules", "dist", "integration", "examples"],
+  "references": [
+    { "path": "./integration" },
+    { "path": "./packages/hdwallet-core" },
+    { "path": "./packages/hdwallet-keepkey" },
+    { "path": "./packages/hdwallet-keepkey-chromeusb" },
+    { "path": "./packages/hdwallet-keepkey-electron" },
+    { "path": "./packages/hdwallet-keepkey-nodehid" },
+    { "path": "./packages/hdwallet-keepkey-nodewebusb" },
+    { "path": "./packages/hdwallet-keepkey-tcp" },
+    { "path": "./packages/hdwallet-keepkey-webusb" },
+    { "path": "./packages/hdwallet-ledger" },
+    { "path": "./packages/hdwallet-ledger-webhid" },
+    { "path": "./packages/hdwallet-ledger-webusb" },
+    { "path": "./packages/hdwallet-metamask-multichain" },
+    { "path": "./packages/hdwallet-native" },
+    { "path": "./packages/hdwallet-portis" },
+    { "path": "./packages/hdwallet-trezor" },
+    { "path": "./packages/hdwallet-trezor-connect" },
+    { "path": "./packages/hdwallet-walletconnect" },
+    { "path": "./packages/hdwallet-walletconnectV2" },
+    { "path": "./packages/hdwallet-keplr" },
+    { "path": "./packages/hdwallet-coinbase" },
+    { "path": "./packages/hdwallet-phantom" }
+  ]
+}
